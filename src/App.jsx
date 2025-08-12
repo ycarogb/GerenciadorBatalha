@@ -2,31 +2,17 @@ import Tasks from "./components/Tasks";
 import AddTasks from "./components/AddTasks";
 import { useState } from "react";
 import { v4 } from "uuid";
+import { useEffect } from "react";
 
 function App() {
   // criação de um state (um objeto que representa o estado de certo componente) para armazenar as tarefas das tasks
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      title: "Estudar React",
-      description:
-        "Estudar React é muito importante para o desenvolvimento web moderno.",
-      completed: false,
-    },
-    {
-      id: 2,
-      title: "Estudar JavaScript",
-      description: "JavaScript é a base de muitas tecnologias web.",
-      completed: false,
-    },
-    {
-      id: 3,
-      title: "Estudar HTML e CSS",
-      description:
-        "HTML e CSS são fundamentais para a construção de páginas web.",
-      completed: false,
-    },
-  ]);
+  const [tasks, setTasks] = useState(
+    JSON.parse(localStorage.getItem("tasks")) || []
+  ); //se não houver nada no localStorage, o state tasks será um array vazio
+
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks)); //salva o state tasks no localStorage e converte o objeto em string
+  }, [tasks]); //se algo mudar no state tasks, a função dentro do useEffect será executada
 
   //crio funções que vão manipular o state tasks aqui em App.jsx porque o state está aqui
   function onTaskClick(taskId) {
