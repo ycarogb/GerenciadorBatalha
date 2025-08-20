@@ -14,6 +14,23 @@ function App() {
     localStorage.setItem("tasks", JSON.stringify(tasks)); //salva o state tasks no localStorage e converte o objeto em string
   }, [tasks]); //se algo mudar no state tasks, a função dentro do useEffect será executada
 
+  //Usando o useEffect para buscar as tarefas de uma API quando o componente for montado
+  // useEffect(() => {
+  //   const fetchTasks = async () => {
+  //     const response = await fetch(
+  //       "https://jsonplaceholder.typicode.com/todos?_limit=10",
+  //       {
+  //         method: "GET",
+  //       }
+  //     );
+
+  //     const data = await response.json();
+  //     setTasks(data);
+  //     console.log(data);
+  //   };
+  //   fetchTasks();
+  // }, []); //array de dependências vazio -> a função dentro do useEffect será executada apenas uma vez, quando o componente for montado
+
   //crio funções que vão manipular o state tasks aqui em App.jsx porque o state está aqui
   function onTaskClick(taskId) {
     const newTask = tasks.map((task) => {
@@ -41,7 +58,7 @@ function App() {
   }
 
   return (
-    <div className="w-screen h-screen bg-slate-500 flex justify-center p-6">
+    <div className="w-screen min-h-screen bg-slate-500 flex justify-center p-6">
       <div className="w-[500px] space-y-4">
         <h1 className="text-3xl text-slate-100 font-bold text-center">
           Gerenciador de Tarefas
